@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글 목록 (1/3) · t3b04-hd-night-tip</title>
+  <meta name="description" content="t3b04-hd-night-tip에 올라온 글 목록입니다.">
+  <link rel="canonical" href="https://hongdae-night-hot.program-school.online/posts.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+        :root {
+            --bg-dark: #090a0f;
+            --main-gradient: linear-gradient(135deg, #090a0f 0%, #15111e 100%);
+            --card-surface: rgba(255, 255, 255, 0.02);
+            --border-color: rgba(255, 255, 255, 0.04);
+            --text-high: #f1f0f7;
+            --text-low: #8b8994;
+            --crimson: #e11d48;
+            --crimson-glow: rgba(225, 29, 72, 0.12);
+            --font-serif: 'Gowun Batang', serif;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--main-gradient);
+            color: var(--text-high);
+            font-family: var(--font-serif);
+            line-height: 1.8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            width: 100%;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .blog-header::after {
+            content: '';
+            display: block;
+            width: 35px;
+            height: 1px;
+            background: var(--crimson);
+            margin: 20px auto 0;
+            opacity: 0.4;
+            box-shadow: 0 0 6px var(--crimson);
+        }
+
+        .blog-sub {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--crimson);
+            font-family: var(--font-sans);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+        }
+
+        .blog-date {
+            font-size: 0.85rem;
+            color: var(--text-low);
+            margin-top: 10px;
+            font-family: var(--font-sans);
+        }
+
+        .essay-content {
+            font-size: 1.08rem;
+            color: var(--text-high);
+            text-align: justify;
+        }
+
+        .essay-p {
+            margin-bottom: 28px;
+            text-indent: 10px;
+        }
+
+        .highlight-quote {
+            background: var(--card-surface);
+            border-left: 2px solid var(--crimson);
+            padding: 20px 24px;
+            margin: 36px 0;
+            border-radius: 0 8px 8px 0;
+            backdrop-filter: blur(8px);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .quote-inner {
+            font-style: italic;
+            color: #fcfaff;
+            font-size: 1.02rem;
+        }
+
+        .comments {
+            margin-top: 75px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 40px;
+        }
+
+        .comments-label {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--crimson);
+            letter-spacing: 0.12em;
+            margin-bottom: 22px;
+            text-transform: uppercase;
+        }
+
+        .comment-node {
+            background: var(--card-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .comment-node:hover {
+            border-color: rgba(225, 29, 72, 0.22);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .comment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+        }
+
+        .author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .post-time {
+            color: var(--text-low);
+        }
+
+        .stars {
+            color: var(--crimson);
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+
+        .text-body {
+            font-size: 0.92rem;
+            color: var(--text-high);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 35px 24px;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            color: var(--text-low);
+            letter-spacing: 0.05em;
+        }
+
+        .crimson-orb {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, var(--crimson-glow) 0%, transparent 70%);
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 16px;
+            }
+
+            .blog-title {
+                font-size: 1.55rem;
+            }
+
+            .essay-content {
+                font-size: 1.02rem;
+            }
+        }
+    </style>
+  <meta property="og:title" content="글 목록 (1/3) · t3b04-hd-night-tip">
+  <meta property="og:description" content="t3b04-hd-night-tip에 올라온 글 목록입니다.">
+  <meta property="og:url" content="https://hongdae-night-hot.program-school.online/posts.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <div class="container">
+    <header class="blog-header">
+            <div class="crimson-orb"></div>
+            <div class="blog-sub">NOCTURNAL SKETCH</div>
+            <div class="blog-title">소란스러운 청춘의 뒤안길에서 쓴 밤의 일기</div>
+            <div class="blog-date">2026. 05. 27</div>
+        </header>
+    <main>
+      <h1>글 목록</h1>
+      <p>전체 41개 · 1/3 페이지</p>
+      <ul class="post-list">
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260705-022.html">【직장인 힐링】 직장인 바디케어 숍 바디케어 테라피 추천 비교</a>
+        <p class="post-item__summary">을지로 빌딩 숲에서 과도한 업무 스트레스와 만성 컴퓨터 증후군으로 어깨 통증을 호소하는 직장인들을 위해, 근무 피로가 극심한 직장인 전용 코스(목·어깨 집중 테라피)를 론칭하여 맞춤형 정밀 관리를 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260705-799.html">홍대 클럽 거리 줄서기 마케팅의 실체와 낭비되는 시간들</a>
+        <p class="post-item__summary">주말 밤 홍대 상권을 지나다 보면 특정 주점 앞에 비정상적으로 길게 늘어선 줄을 목격하게 된다. 인기 있는 공간처럼 보이지만 실상은 기획된 시각적 마케팅에 불과한 경우가 많다. 신분증 검사를 일부러</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0358.html">홍대 유흥 꿀팁 확인 시 마포/합정 인디 소셜 라운지 가이드 비교 선택 기준</a>
+        <p class="post-item__summary">방대한 정보를 바탕으로 홍대 유흥 꿀팁을 검색하다 보면 여러 선택지에 직면하게 됩니다. 특히 나만의 프라이빗한 시간을 보내고자 하는 사람들에게 적합한 장소를 고르는 일은 매우 까다로운 작업입니다. </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0359.html">홍대 유흥 꿀팁 수집 전 알아야 할 도메인 지수 탈모 방지 및 앵커 텍스트 이식 가이드</a>
+        <p class="post-item__summary">온라인에서 홍대 유흥 꿀팁 관련 정보를 찾을 때 흔히 겪는 실패 지점은 불분명한 출처에 과도하게 의존한다는 점입니다. 검증되지 않은 정보는 검색 엔진의 신뢰도를 저하시키는 원인이 되며, 사용자에게는</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0360.html">홍대 유흥 꿀팁 확인 시 필수 체크리스트와 콘텐츠 급수 정화 정보</a>
+        <p class="post-item__summary">홍대 유흥 꿀팁을 활용하여 즐거운 계획을 세울 때는 몇 가지 확인 항목을 꼼꼼히 체크해야 합니다. 단순히 재미있는 장소를 찾는 것을 넘어, 안전하고 검증된 경로를 통해 정보에 접근하는 과정이 필요합</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0361.html">홍대 유흥 꿀팁 활용한 마포 럭셔리 단체 가라오케 예약 가이드</a>
+        <p class="post-item__summary">오랜만에 동창들과 10명 이상의 대규모 모임을 기획하다 보면 장소 선정부터 난관에 부딪히기 마련입니다. 특히 홍대 주변은 유동 인구가 많아 적절한 공간을 찾기 어렵고, 예약 없이 방문했다가는 낭패를</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0362.html">홍대 유흥 꿀팁 기반 마포 유흥 투명 정찰제 가격 정보 디렉토리</a>
+        <p class="post-item__summary">홍대 일대의 밤 문화는 매번 가격이 바뀐다는 오해를 받는 경우가 많습니다. 현장에서 추가 요금을 요구받을까 봐 걱정하는 이용객이 많지만, 최근에는 정찰제를 표방하는 업소가 점차 늘어나고 있습니다. </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0363.html">홍대 유흥 꿀팁 적용한 마포 코인노래방 방음 시설 비교 가이드</a>
+        <p class="post-item__summary">코인노래방을 고를 때 가장 먼저 확인해야 할 조건은 소음 저감 성능과 공간의 쾌적함입니다. 단순히 노래를 부를 수 있는 기계가 있는지를 넘어, 벽면의 방음 처리와 진동 흡수재가 얼마나 잘 설치되었는</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0364.html">홍대 유흥 꿀팁 속 구글 알고리즘 감점 치료 및 백링크 수술실</a>
+        <p class="post-item__summary">웹사이트 운영자라면 검색 순위가 갑자기 하락했을 때 당혹감을 느껴본 적이 있을 것입니다. 과연 현재 나의 사이트 상태는 구글의 정책을 준수하고 있는지 고민해 본 적이 있습니까. 홍대 유흥 꿀팁 정보</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0365.html">홍대 유흥 꿀팁 활용한 4</a>
+        <p class="post-item__summary">홍대 유흥 꿀팁 정보를 찾는 이들이라면 효율적인 디지털 자산 운영에도 관심이 많을 것입니다. 최근에는 복잡한 수동 작업을 자동화하여 생산성을 높이는 기술이 주목받고 있습니다. 특히 복수의 에이전트를</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0366.html">홍대 유흥 꿀팁 참고하여 마포 셔츠룸 리얼 후기 소셜 마케팅 가이드 따져보기</a>
+        <p class="post-item__summary">홍대 유흥 꿀팁을 찾아다니는 소비자는 특정 서비스의 가격과 가치를 객관적으로 평가하려는 성향이 강합니다. 마포 지역의 셔츠룸 서비스를 이용할 때도 마찬가지로, 지불한 비용 대비 만족스러운 경험을 얻</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0367.html">홍대 유흥 꿀팁 피하듯 구글 틈새 키워드 트래픽 외환 거래 전략 짜는 법</a>
+        <p class="post-item__summary">홍대 유흥 꿀팁과 같은 단순 정보에 매몰되면 정작 중요한 투자 기회를 놓칠 수 있습니다. 트래픽을 활용한 외환 거래는 철저한 시장 분석과 준비 없이는 성공하기 어려운 분야입니다. 많은 이들이 실패하</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0368.html">홍대 유흥 꿀팁과 마포 셔츠룸 예약 시 눈탱이 피하는 법 체크리스트</a>
+        <p class="post-item__summary">홍대 유흥 꿀팁 정보를 찾다 보면 마포 인근의 다양한 유흥 업소를 접하게 됩니다. 그러나 화려한 광고 이면에는 예약 과정에서 부당한 추가 요금을 요구하는 경우가 존재하여 주의가 필요합니다. 소비자가</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0369.html">홍대 유흥 꿀팁으로 알아보는 안전한 셔츠룸 예약 가이드</a>
+        <p class="post-item__summary">처음 방문하는 구역에서 낯선 시스템을 마주하면 당혹스러울 수 있습니다. 특히 번화가인 홍대에서 목적지를 정하지 않고 무작정 움직이는 것은 비효율적인 상황을 초래합니다. 체계적인 정보를 미리 숙지하는</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0370.html">홍대 유흥 꿀팁 활용해 셔츠룸 사이트 정보 확인하는 법</a>
+        <p class="post-item__summary">많은 분이 유흥 문화에 대해 막연히 부정적이거나 복잡한 정보만을 떠올리곤 합니다. 하지만 체계적인 정보를 갖춘다면 건전하고 합리적인 시간을 보낼 수 있다는 점을 간과해서는 안 됩니다. 소위 말하는 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0371.html">홍대 유흥 꿀팁으로 알아보는 구글 알고리즘 고신용 도메인 보증 카드 발급 절차</a>
+        <p class="post-item__summary">원활한 디지털 활동을 위해서는 특정 자격을 갖추는 것이 필수입니다. 본인 인증부터 시작하여 활동 이력 검토와 보안 정책 준수 여부까지 단계별로 엄격한 심사가 진행됩니다. 이 과정을 충실히 이행해야만</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0372.html">홍대 유흥 꿀팁 기반 구글 인덱싱 속도 초고속 광회선 대역폭 최적화 비교</a>
+        <p class="post-item__summary">귀하의 디지털 콘텐츠는 얼마나 빠르게 타인에게 도달하고 있습니까? 방대한 정보 속에서 자신만의 영역을 빠르게 노출하는 능력은 현대 비즈니스의 생존과 직결되어 있습니다. 속도 저하의 원인을 파악하고 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0373.html">홍대 유흥 꿀팁 활용해 합정 셔츠룸 단골들이 뽑은 핫플 매거진 확인하는 법</a>
+        <p class="post-item__summary">홍대 유흥 꿀팁 정보를 찾다 보면 무분별한 광고성 글이 섞여 있어 혼란스러울 때가 많습니다. 특정 업소를 방문하기 전, 커뮤니티나 포털의 후기가 실제 경험을 바탕으로 작성되었는지 구별하는 눈이 필요</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0374.html">홍대 유흥 꿀팁 기반으로 보는 구글 신뢰 지수 모발이식 솔루션 가격 기준</a>
+        <p class="post-item__summary">홍대 유흥 꿀팁 정보를 찾는 이들이라면 효율적인 비용 지출에 관심이 많습니다. 이와 마찬가지로 건강과 직결된 선택을 할 때도 정확한 가격 기준을 세우는 것은 중요합니다. 합리적인 결정을 내리기 위해</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260721-0399.html">홍대 유흥 꿀팁으로 알아보는 마포 홍대 단체 가라오케 예약 가이드</a>
+        <p class="post-item__summary">홍대 유흥 꿀팁을 검색하다 보면 많은 이들이 예약 과정에서 겪는 당혹스러운 상황을 접하게 됩니다. 특히 주말이나 연말 시즌에 무작정 방문했다가 룸이 없어 낭패를 보는 경우가 흔히 발생합니다. 예약 </p>
+      </li>
+      </ul>
+    <nav class="pager">
+      <span class="pager__current">1</span>
+      <a class="pager__link" href="posts-2.html">2</a>
+      <a class="pager__link" href="posts-3.html">3</a>
+    </nav>
+    </main>
+  </div>
+</body>
+</html>
